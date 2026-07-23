@@ -1,19 +1,33 @@
 [
   {
-    "name": "/mute",
+    "name": "/mute requires admin permissions",
     "steps": [
       {
+        "send": { "text": "/mute" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Mute user for specified duration with explanation"
+              "text": "Only admins can use this command."
             }
           }
-        ],
-        "send": {
-          "text": "/mute"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "/mute shows usage without target",
+    "steps": [
+      {
+        "send": { "text": "/mute test 10m" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Only admins can use this command."
+            }
+          }
+        ]
       }
     ]
   }

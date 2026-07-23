@@ -1,19 +1,33 @@
 [
   {
-    "name": "/warn",
+    "name": "/warn requires admin permissions",
     "steps": [
       {
+        "send": { "text": "/warn" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Issue warning to specified user with explanation"
+              "text": "Only admins can use this command."
             }
           }
-        ],
-        "send": {
-          "text": "/warn"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "/warn shows usage without target",
+    "steps": [
+      {
+        "send": { "text": "/warn test" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Only admins can use this command."
+            }
+          }
+        ]
       }
     ]
   }

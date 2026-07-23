@@ -12,5 +12,21 @@
         ]
       }
     ]
+  },
+  {
+    "name": "/start shows settings button in menu",
+    "steps": [
+      {
+        "send": { "text": "/start" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "👋 Welcome! Tap a button below to get started."
+            }
+          }
+        ]
+      }
+    ]
   }
 ]

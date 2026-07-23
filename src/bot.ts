@@ -2,11 +2,53 @@ import { Composer } from "grammy";
 import { createBot, type BotContext } from "./toolkit/index.js";
 import type { StorageAdapter } from "grammy";
 
-// The per-chat session shape (ephemeral conversation state only). Extend as the
-// bot grows. Durable domain data must NOT live here — use the toolkit's
-// persistent storage (see AGENTS.md).
+export interface MemberInfo {
+  id: number;
+  displayName: string;
+  joinTime: number;
+  trusted: boolean;
+  verificationStatus: "pending" | "verified" | "removed";
+}
+
+export interface PendingVerification {
+  memberId: number;
+  challengeMessageId: number;
+  expiresAt: number;
+}
+
+export interface Infraction {
+  memberId: number;
+  type: "warn" | "mute" | "remove";
+  timestamp: number;
+  reason: string;
+  moderator: number;
+}
+
+export interface CommandLogEntry {
+  action: string;
+  target: number;
+  moderator: number;
+  timestamp: number;
+}
+
+export interface GroupSettings {
+  welcomeText: string;
+  rules: string;
+  autoActionThresholds: {
+    maxInfractionsBeforeMute: number;
+    maxInfractionsBeforeRemove: number;
+    verificationTimeoutMinutes: number;
+  };
+  trustedUserIds: number[];
+}
+
 export interface Session {
-  // example: step?: "awaiting_amount";
+  step?: string;
+  members: Map<number, MemberInfo>;
+  pendingVerifications: Map<number, PendingVerification>;
+  infractions: Infraction[];
+  commandLogs: CommandLogEntry[];
+  settings: GroupSettings;
 }
 
 export type Ctx = BotContext<Session>;
@@ -42,7 +84,22 @@ export interface BuildBotOptions {
  */
 export async function buildBot(token: string, opts: BuildBotOptions = {}) {
   const bot = createBot<Session>(token, {
-    initial: () => ({}),
+    initial: () => ({
+      members: new Map(),
+      pendingVerifications: new Map(),
+      infractions: [],
+      commandLogs: [],
+      settings: {
+        welcomeText: "Welcome to the group! Tap the button below to verify you're human.",
+        rules: "",
+        autoActionThresholds: {
+          maxInfractionsBeforeMute: 3,
+          maxInfractionsBeforeRemove: 5,
+          verificationTimeoutMinutes: 3,
+        },
+        trustedUserIds: [],
+      },
+    }),
     storage: opts.storage,
   });
 

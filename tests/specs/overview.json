@@ -1,19 +1,17 @@
 [
   {
-    "name": "/overview",
+    "name": "/overview requires admin permissions",
     "steps": [
       {
+        "send": { "text": "/overview" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Show statistical overview of group activity"
+              "text": "Only admins can view the overview."
             }
           }
-        ],
-        "send": {
-          "text": "/overview"
-        }
+        ]
       }
     ]
   }
