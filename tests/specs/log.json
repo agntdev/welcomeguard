@@ -1,0 +1,20 @@
+[
+  {
+    "name": "/log",
+    "steps": [
+      {
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Display recent N moderation actions in chat"
+            }
+          }
+        ],
+        "send": {
+          "text": "/log"
+        }
+      }
+    ]
+  }
+]
