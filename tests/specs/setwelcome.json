@@ -1,14 +1,14 @@
 [
   {
-    "name": "/log requires admin permissions",
+    "name": "/setwelcome requires admin permissions",
     "steps": [
       {
-        "send": { "text": "/log" },
+        "send": { "text": "/setwelcome" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Only admins can view the action log."
+              "text": "Only admins can change settings."
             }
           }
         ]
@@ -16,15 +16,15 @@
     ]
   },
   {
-    "name": "/log with count argument requires admin permissions",
+    "name": "/setwelcome with text requires admin permissions",
     "steps": [
       {
-        "send": { "text": "/log 20" },
+        "send": { "text": "/setwelcome Hello new members!" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Only admins can view the action log."
+              "text": "Only admins can change settings."
             }
           }
         ]

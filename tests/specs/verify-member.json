@@ -1,19 +1,18 @@
 [
   {
-    "name": "I'm human",
+    "name": "I'm human button shows verification response",
     "steps": [
       {
+        "send": { "callback": "verify:member" },
         "expect": [
+          { "method": "answerCallbackQuery" },
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Verification button for new members to confirm humanity"
+              "text": "You're already verified or not pending verification."
             }
           }
-        ],
-        "send": {
-          "callback": "verify:member"
-        }
+        ]
       }
     ]
   }

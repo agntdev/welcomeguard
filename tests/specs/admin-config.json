@@ -1,0 +1,67 @@
+[
+  {
+    "name": "admin settings button shows config menu",
+    "steps": [
+      {
+        "send": { "callback": "admin:config" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "⚙️ Admin Settings\n\nCustomize how GroupGuardian works for your group."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "config thresholds button shows current values",
+    "steps": [
+      {
+        "send": { "callback": "config:thresholds" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "config setwelcome prompts for text",
+    "steps": [
+      {
+        "send": { "callback": "config:setwelcome" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Send me the new welcome text for new members. You can use it to explain group rules or set expectations."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "config setrules prompts for text",
+    "steps": [
+      {
+        "send": { "callback": "config:setrules" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Send me the group rules. These will be shown when requested."
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
